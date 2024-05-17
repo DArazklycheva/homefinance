@@ -25,7 +25,7 @@ export class Router {
             {
                 route: '/login',
                 title: 'Авторизация',
-                filePathTemplate: '/templates/pages/login.html',
+                filePathTemplate: '/templates/pages/auth/login.html',
                 load: () => {
                     new Login();
                 }
@@ -33,7 +33,7 @@ export class Router {
             {
                 route: '/sign-up',
                 title: 'Регистрация',
-                filePathTemplate: '/templates/pages/sign-up.html',
+                filePathTemplate: '/templates/pages/auth/sign-up.html',
                 load: () => {
                     new SignUp();
                 }

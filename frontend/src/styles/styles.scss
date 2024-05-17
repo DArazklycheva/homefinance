@@ -1,3 +1,31 @@
-body {
-  background: aqua;
+.login {
+  .form-signin {
+    width: 392px;
+    h1.h3.fw-normal {
+      color: #052C65;
+    }
+
+    .input-group-text {
+      height: 38px;
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+    }
+
+    .col-auto {
+      line-height: 0;
+    }
+
+    .form-check-label {
+      font-size: 12px;
+    }
+
+    p {
+      font-size: 12px;
+
+      a {
+        font-size: 12px;
+      }
+    }
+  }
 }
+

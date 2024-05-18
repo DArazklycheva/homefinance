@@ -9,6 +9,10 @@ import {ExpensesView} from "./components/expenses/expenses-view";
 import {ExpensesDelete} from "./components/expenses/expenses-delete";
 import {ExpensesCreate} from "./components/expenses/expenses-create";
 import {ExpensesEdit} from "./components/expenses/expenses-edit";
+import {IncomeExpensesView} from "./components/income&expenses/income&expenses-view";
+import {IncomeExpensesDelete} from "./components/income&expenses/income&expenses-delete";
+import {IncomeExpensesCreate} from "./components/income&expenses/income&expenses-create";
+import {IncomeExpensesEdit} from "./components/income&expenses/income&expenses-edit";
 
 export class Router {
     constructor() {
@@ -120,6 +124,42 @@ export class Router {
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new ExpensesEdit();
+                }
+            },
+            {
+                route: '/income&expenses',
+                title: 'Доходы и расходы',
+                filePathTemplate: '/templates/pages/income&expenses/view.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeExpensesView();
+                }
+            },
+            {
+                route: '/income&expenses/delete',
+                title: 'Удалить доходы и расходы',
+                filePathTemplate: '/templates/pages/income&expenses/delete.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeExpensesDelete();
+                }
+            },
+            {
+                route: '/income&expenses/create',
+                title: 'Создать доходы и расходы',
+                filePathTemplate: '/templates/pages/income&expenses/create.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeExpensesCreate();
+                }
+            },
+            {
+                route: '/income&expenses/edit',
+                title: 'Редактировать доходы и расходы',
+                filePathTemplate: '/templates/pages/income&expenses/edit.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeExpensesEdit();
                 }
             },
         ];

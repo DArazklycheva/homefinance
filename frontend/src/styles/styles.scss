@@ -37,14 +37,19 @@
         height: 63vh;
       }
 
-      .form-select {
-        border: none;
-        background-color: inherit;
-      }
-
       .dropdown-toggle::after {
         display: none;
       }
     }
   }
+
+  .main {
+    .btn {
+      width: 100px;
+    }
+    .divider {
+      border: .5px solid rgba(0, 0, 0, 0.25);
+    }
+  }
+
 }

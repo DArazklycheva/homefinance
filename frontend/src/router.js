@@ -1,6 +1,10 @@
 import {Main} from "./components/main";
 import {Login} from "./components/auth/login";
 import {SignUp} from "./components/auth/sign-up";
+import {IncomeView} from "./components/income/income-view";
+import {IncomeDelete} from "./components/income/income-delete";
+import {IncomeCreate} from "./components/income/income-create";
+import {IncomeEdit} from "./components/income/income-edit";
 
 export class Router {
     constructor() {
@@ -40,6 +44,42 @@ export class Router {
                 useLayout: false,
                 load: () => {
                     new SignUp();
+                }
+            },
+            {
+                route: '/income',
+                title: 'Доходы',
+                filePathTemplate: '/templates/pages/income/view.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeView();
+                }
+            },
+            {
+                route: '/income/delete',
+                title: 'Удалить доход',
+                filePathTemplate: '/templates/pages/income/delete.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeDelete();
+                }
+            },
+            {
+                route: '/income/create',
+                title: 'Создать доход',
+                filePathTemplate: '/templates/pages/income/create.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeCreate();
+                }
+            },
+            {
+                route: '/income/edit',
+                title: 'Редактировать доход',
+                filePathTemplate: '/templates/pages/income/edit.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new IncomeEdit();
                 }
             },
         ];

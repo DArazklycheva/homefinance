@@ -1,31 +1,50 @@
-.login {
-  .form-signin {
-    width: 392px;
-    h1.h3.fw-normal {
-      color: #052C65;
-    }
+#content {
+  color: #052C65;
 
-    .input-group-text {
-      height: 38px;
-      border-bottom-right-radius: 0;
-      border-top-right-radius: 0;
-    }
+  .login {
+    .form-signin {
+      width: 392px;
 
-    .col-auto {
-      line-height: 0;
-    }
+      .input-group-text {
+        height: 38px;
+        border-bottom-right-radius: 0;
+        border-top-right-radius: 0;
+      }
 
-    .form-check-label {
-      font-size: 12px;
-    }
+      .col-auto {
+        line-height: 0;
+      }
 
-    p {
-      font-size: 12px;
-
-      a {
+      .form-check-label {
         font-size: 12px;
+      }
+
+      p {
+        font-size: 12px;
+
+        a {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+
+  .layout {
+    .nav-left {
+      border-right: 1px solid rgba(0, 0, 0, 0.25);
+
+      .nav-pills {
+        height: 63vh;
+      }
+
+      .form-select {
+        border: none;
+        background-color: inherit;
+      }
+
+      .dropdown-toggle::after {
+        display: none;
       }
     }
   }
 }
-

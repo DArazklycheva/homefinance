@@ -5,6 +5,10 @@ import {IncomeView} from "./components/income/income-view";
 import {IncomeDelete} from "./components/income/income-delete";
 import {IncomeCreate} from "./components/income/income-create";
 import {IncomeEdit} from "./components/income/income-edit";
+import {ExpensesView} from "./components/expenses/expenses-view";
+import {ExpensesDelete} from "./components/expenses/expenses-delete";
+import {ExpensesCreate} from "./components/expenses/expenses-create";
+import {ExpensesEdit} from "./components/expenses/expenses-edit";
 
 export class Router {
     constructor() {
@@ -80,6 +84,42 @@ export class Router {
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new IncomeEdit();
+                }
+            },
+            {
+                route: '/expenses',
+                title: 'Расходы',
+                filePathTemplate: '/templates/pages/expenses/view.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpensesView();
+                }
+            },
+            {
+                route: '/expenses/delete',
+                title: 'Удалить расход',
+                filePathTemplate: '/templates/pages/expenses/delete.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpensesDelete();
+                }
+            },
+            {
+                route: '/expenses/create',
+                title: 'Создать расход',
+                filePathTemplate: '/templates/pages/expenses/create.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpensesCreate();
+                }
+            },
+            {
+                route: '/expenses/edit',
+                title: 'Редактировать расход',
+                filePathTemplate: '/templates/pages/expenses/edit.html',
+                useLayout: '/templates/layout.html',
+                load: () => {
+                    new ExpensesEdit();
                 }
             },
         ];

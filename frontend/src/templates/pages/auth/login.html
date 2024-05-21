@@ -16,8 +16,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <input type="email" class="form-control" id="email"
-                               placeholder="Электронная почта">
+                        <input type="email" class="form-control" id="email" placeholder="Электронная почта">
+                        <span id="email-error" class="error invalid-feedback">Введите корректный E-mail</span>
                     </div>
                 </div>
             </div>
@@ -35,7 +35,9 @@
                             </div>
                         </div>
                         <input type="password" class="form-control" id="password" placeholder="Пароль">
+                        <span id="password-error" class="error invalid-feedback">Заполните пароль</span>
                     </div>
+
                 </div>
             </div>
 
@@ -45,7 +47,7 @@
                     Запомнить меня
                 </label>
             </div>
-            <button class="btn btn-primary w-100 py-2" type="submit">Войти</button>
+            <button class="btn btn-primary w-100 py-2" type="button" id="process-button">Войти</button>
             <p class="mt-2 mb-3 text-body-secondary">Ещё нет аккаунта?
                 <a href="javascript:void(0);">Пройдите регистрацию</a></p>
         </form>

@@ -15,8 +15,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <input type="email" class="form-control" id="name"
-                               placeholder="ФИО">
+                        <input type="text" class="form-control" id="name" placeholder="ФИО">
+                        <span id="name-error" class="error invalid-feedback">Заполните имя</span>
                     </div>
                 </div>
             </div>
@@ -33,8 +33,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <input type="email" class="form-control" id="email"
-                               placeholder="Электронная почта">
+                        <input type="email" class="form-control" id="email" placeholder="Электронная почта">
+                        <span id="email-error" class="error invalid-feedback">Введите корректный E-mail</span>
                     </div>
                 </div>
             </div>
@@ -52,13 +52,14 @@
                             </div>
                         </div>
                         <input type="password" class="form-control" id="password" placeholder="Пароль">
+                        <span id="password-error" class="error invalid-feedback">Заполните пароль</span>
                     </div>
                 </div>
             </div>
 
             <div class="form-floating">
                 <div class="col-auto">
-                    <label class="sr-only" for="repeat-password"></label>
+                    <label class="sr-only" for="password-repeat"></label>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <div class="input-group-text">
@@ -68,7 +69,8 @@
                                 </svg>
                             </div>
                         </div>
-                        <input type="password" class="form-control" id="repeat-password" placeholder="Подтверждение пароля">
+                        <input type="password" class="form-control" id="password-repeat" placeholder="Подтверждение пароля">
+                        <span id="password-repeat-error" class="error invalid-feedback">Пароль и повторение пароля должны совпадать</span>
                     </div>
                 </div>
             </div>
@@ -79,7 +81,7 @@
                     Запомнить меня
                 </label>
             </div>
-            <button class="btn btn-primary w-100 py-2" type="submit">Войти</button>
+            <button class="btn btn-primary w-100 py-2" type="button" id="process-button">Войти</button>
             <p class="mt-2 mb-3 text-body-secondary">Уже есть аккаунт?
                 <a href="javascript:void(0);">Войдите в систему</a></p>
         </form>

@@ -14,7 +14,7 @@
       }
 
       .col-auto {
-        line-height: 0;
+        line-height: 1;
       }
 
       .form-check-label {
@@ -32,11 +32,12 @@
   }
 
   .layout {
+    height: 100vh;
     .nav-left {
       border-right: 1px solid rgba(0, 0, 0, 0.25);
 
       .nav-pills {
-        height: 63vh;
+        flex-grow: 1;
       }
 
       .dropdown-toggle::after {

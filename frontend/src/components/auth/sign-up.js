@@ -12,7 +12,7 @@ export class SignUp {
     }
 
     validateForm() {
-        if (this.nameElement.value) {
+        if (this.nameElement.value && this.nameElement.value.match(/^[А-Я][а-я]+\s*$/)) {
             this.nameElement.classList.remove('is-invalid');
             this.nameSvgElement.classList.remove('error-input');
         } else {

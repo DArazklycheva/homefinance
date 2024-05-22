@@ -4,6 +4,7 @@
   color: #052C65;
 
   .login {
+    height: 100vh;
     .form-signin {
       width: 392px;
 
@@ -11,6 +12,11 @@
         height: 38px;
         border-bottom-right-radius: 0;
         border-top-right-radius: 0;
+      }
+
+      .form-control {
+        border-top-right-radius: 0.375rem;
+        border-bottom-right-radius: 0.375rem;
       }
 
       .col-auto {

@@ -1,6 +1,7 @@
 import {Main} from "./components/main";
 import {Login} from "./components/auth/login";
 import {SignUp} from "./components/auth/sign-up";
+import {Logout} from "./components/auth/logout";
 import {IncomeView} from "./components/income/income-view";
 import {IncomeDelete} from "./components/income/income-delete";
 import {IncomeCreate} from "./components/income/income-create";
@@ -52,6 +53,12 @@ export class Router {
                 useLayout: false,
                 load: () => {
                     new SignUp(this.openNewRoute.bind(this));
+                }
+            },
+            {
+                route: '/logout',
+                load: () => {
+                    new Logout(this.openNewRoute.bind(this));
                 }
             },
             {

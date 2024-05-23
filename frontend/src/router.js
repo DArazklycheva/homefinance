@@ -207,7 +207,7 @@ export class Router {
     async activateRoute(e, oldRoute = null) {
         if (oldRoute) {
             const currentRoute = this.routes.find(item => item.route === oldRoute);
-            console.log(currentRoute);
+            // console.log(currentRoute);
         }
 
         const urlRoute = window.location.pathname;

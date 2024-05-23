@@ -1,8 +1,11 @@
+import {AuthUtils} from "../../utils/auth-utils";
+import {HttpUtils} from "../../utils/http-utils";
+
 export class Login {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
 
-        if (localStorage.getItem('user')) {
+        if (localStorage.getItem(AuthUtils.userTokenKey)) {
             return this.openNewRoute('/');
         }
 
@@ -44,28 +47,20 @@ export class Login {
         this.commonErrorElement.style.display = 'none';
 
         if (this.validateForm()) {
-            const response = await fetch('http://localhost:3000/api/login', {
-                method: 'POST',
-                headers: {
-                    'Content-type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    email: this.emailElement.value,
-                    password: this.passwordElement.value,
-                    rememberMe: this.rememberMeElement.checked
-                })
+
+            const result = await HttpUtils.request('/login', 'POST', {
+                email: this.emailElement.value,
+                password: this.passwordElement.value,
+                rememberMe: this.rememberMeElement.checked
             });
 
-            const result = await response.json();
-
-            if (result.error || !result.tokens || !result.user) {
+            if (result.error || !result.response || (result.response && (!result.response.tokens || !result.response.user))) {
                 this.commonErrorElement.style.display = 'block';
                 return;
             }
 
-            localStorage.setItem('tokens', JSON.stringify(result.tokens));
-            localStorage.setItem('user', JSON.stringify(result.user));
+            localStorage.setItem(AuthUtils.tokensKey, JSON.stringify(result.response.tokens));
+            localStorage.setItem(AuthUtils.userTokenKey, JSON.stringify(result.response.user));
 
             this.openNewRoute('/');
         }

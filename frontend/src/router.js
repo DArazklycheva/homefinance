@@ -51,7 +51,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/auth/sign-up.html',
                 useLayout: false,
                 load: () => {
-                    new SignUp();
+                    new SignUp(this.openNewRoute.bind(this));
                 }
             },
             {

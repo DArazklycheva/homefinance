@@ -5,6 +5,7 @@
 
   .login {
     height: 100vh;
+
     .form-signin {
       width: 392px;
 
@@ -43,6 +44,7 @@
 
   .layout {
     height: 100vh;
+
     .nav-left {
       border-right: 1px solid rgba(0, 0, 0, 0.25);
 
@@ -81,14 +83,36 @@
       position: relative;
     }
   }
+
   .income_expenses-view {
     .table {
       width: 1101px;
+
+      tbody {
+        tr {
+          td {
+            a {
+              text-decoration: none;
+            }
+          }
+        }
+      }
     }
   }
+
   .income_expenses-delete {
     .table {
       width: 1101px;
+
+      tbody {
+        tr {
+          td {
+            a {
+              text-decoration: none;
+            }
+          }
+        }
+      }
     }
   }
 }

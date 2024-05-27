@@ -70,9 +70,10 @@ export class SignUp {
         this.commonErrorElement.style.display = 'none';
 
         if (this.validateForm()) {
+            const splitName = this.nameElement.value.split(' ');
             const result = await HttpUtils.request('/signup', 'POST', {
-                name: this.nameElement.value.split(" ")[0],
-                lastName: this.nameElement.value.split(" ")[1],
+                name: splitName[0],
+                lastName: splitName[1],
                 email: this.emailElement.value,
                 password: this.passwordElement.value,
                 passwordRepeat: this.passwordRepeatElement.value

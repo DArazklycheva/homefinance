@@ -5,7 +5,7 @@ export class Logout {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
 
-        if (!localStorage.getItem(AuthUtils.userTokenKey)) {
+        if (!AuthUtils.getAuthInfo(AuthUtils.userTokenKey)) {
             return this.openNewRoute('/login');
         }
 
@@ -13,13 +13,11 @@ export class Logout {
     }
 
     async logout() {
-        const result = await HttpUtils.request('/logout', 'POST', {
-            refreshToken: localStorage.getItem(AuthUtils.refreshTokenKey),
+        await HttpUtils.request('/logout', 'POST', {
+            refreshToken: AuthUtils.getAuthInfo(AuthUtils.refreshTokenKey),
         });
-        console.log(result);
 
-        localStorage.removeItem(AuthUtils.tokensKey);
-        localStorage.removeItem(AuthUtils.userTokenKey);
+        AuthUtils.removeAuthInfo();
 
         this.openNewRoute('/login');
     }

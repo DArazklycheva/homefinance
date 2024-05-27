@@ -5,7 +5,7 @@ export class Login {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
 
-        if (localStorage.getItem(AuthUtils.userTokenKey)) {
+        if (AuthUtils.getAuthInfo(AuthUtils.userTokenKey)) {
             return this.openNewRoute('/');
         }
 
@@ -59,8 +59,7 @@ export class Login {
                 return;
             }
 
-            localStorage.setItem(AuthUtils.tokensKey, JSON.stringify(result.response.tokens));
-            localStorage.setItem(AuthUtils.userTokenKey, JSON.stringify(result.response.user));
+            AuthUtils.setAuthInfo(result.response.tokens.accessToken, result.response.tokens.refreshToken, result.response.user);
 
             this.openNewRoute('/');
         }

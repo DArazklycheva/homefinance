@@ -14,11 +14,13 @@ import {IncomeExpensesView} from "./components/income&expenses/income&expenses-v
 import {IncomeExpensesDelete} from "./components/income&expenses/income&expenses-delete";
 import {IncomeExpensesCreate} from "./components/income&expenses/income&expenses-create";
 import {IncomeExpensesEdit} from "./components/income&expenses/income&expenses-edit";
+import {AuthUtils} from "./utils/auth-utils";
 
 export class Router {
     constructor() {
         this.titlePageElement = document.getElementById('title');
         this.contentPageElement = document.getElementById('content');
+        this.userFullName = null;
 
         this.initEvents();
         this.routes = [
@@ -127,7 +129,6 @@ export class Router {
             {
                 route: '/expenses/edit',
                 title: 'Редактировать расход',
-                filePathTemplate: '/templates/pages/expenses/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new ExpensesEdit();
@@ -214,6 +215,7 @@ export class Router {
         const newRoute = this.routes.find(item => item.route === urlRoute);
 
         if (newRoute) {
+
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title + ' | Lumincoin Finance';
             }
@@ -223,6 +225,21 @@ export class Router {
                 if (newRoute.useLayout) {
                     this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
                     contentBlock = document.getElementById('content-layout');
+
+                    this.profileNameElement = document.getElementById('profile-name');
+                    if (!this.userFullName) {
+                        let userInfo = AuthUtils.getAuthInfo(AuthUtils.userTokenKey);
+                        if (userInfo) {
+                            userInfo = JSON.parse(userInfo);
+                            if (userInfo.name && userInfo.lastName) {
+                                this.userFullName = userInfo.name + ' ' + userInfo.lastName;
+                            }
+                        } else {
+                            await this.openNewRoute('/login');
+                        }
+                    }
+                    this.profileNameElement.innerText = this.userFullName;
+
                 }
                 contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
             }

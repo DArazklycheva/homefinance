@@ -5,7 +5,7 @@ export class SignUp {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
 
-        if (localStorage.getItem(AuthUtils.userTokenKey)) {
+        if (AuthUtils.getAuthInfo(AuthUtils.userTokenKey)) {
             return this.openNewRoute('/');
         }
 
@@ -92,7 +92,7 @@ export class SignUp {
                 return;
             }
 
-            localStorage.setItem(AuthUtils.userTokenKey, JSON.stringify(result.response.user));
+            AuthUtils.setAuthInfo(null, null, result.response.user);
 
             this.openNewRoute('/');
         }

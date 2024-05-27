@@ -3,7 +3,7 @@ export class AuthUtils {
     static refreshTokenKey = 'refreshToken';
     static userTokenKey = 'user';
 
-    static setAuthInfo(accessToken = null, refreshToken = null, user) {
+    static setAuthInfo(accessToken, refreshToken, user) {
         localStorage.setItem(this.accessTokenKey, accessToken);
         localStorage.setItem(this.refreshTokenKey, refreshToken);
         localStorage.setItem(this.userTokenKey, JSON.stringify(user));

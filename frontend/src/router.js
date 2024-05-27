@@ -129,6 +129,7 @@ export class Router {
             {
                 route: '/expenses/edit',
                 title: 'Редактировать расход',
+                filePathTemplate: '/templates/pages/expenses/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
                     new ExpensesEdit();

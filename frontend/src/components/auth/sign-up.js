@@ -10,12 +10,12 @@ export class SignUp {
         }
 
         this.nameElement = document.getElementById('name');
-        this.lastNameElement = document.getElementById('last-name');
+
         this.emailElement = document.getElementById('email');
         this.passwordElement = document.getElementById('password');
         this.passwordRepeatElement = document.getElementById('password-repeat');
         this.nameSvgElement = document.getElementById('name-svg');
-        this.lastNameSvgElement = document.getElementById('last-name-svg');
+
         this.emailSvgElement = document.getElementById('email-svg');
         this.passwordSvgElement = document.getElementById('password-svg');
         this.passwordRepeatSvgElement = document.getElementById('password-repeat-svg');
@@ -27,21 +27,12 @@ export class SignUp {
     validateForm() {
         let isValid = true;
 
-        if (this.nameElement.value && this.nameElement.value.match(/^[А-Я][а-я]+\s*$/)) {
+        if (this.nameElement.value && this.nameElement.value.match(/^[А-Я][а-яА-Я\-]{0,}\s[А-Я][а-яА-Я\-]{1,}(\s[А-Я][а-яА-Я\-]{1,})?$/)) {
             this.nameElement.classList.remove('is-invalid');
             this.nameSvgElement.classList.remove('error-input');
         } else {
             this.nameElement.classList.add('is-invalid');
             this.nameSvgElement.classList.add('error-input');
-            isValid = false;
-        }
-
-        if (this.lastNameElement.value && this.lastNameElement.value.match(/^[А-Я][а-я]+\s*$/)) {
-            this.lastNameElement.classList.remove('is-invalid');
-            this.lastNameSvgElement.classList.remove('error-input');
-        } else {
-            this.lastNameElement.classList.add('is-invalid');
-            this.lastNameSvgElement.classList.add('error-input');
             isValid = false;
         }
 
@@ -80,8 +71,8 @@ export class SignUp {
 
         if (this.validateForm()) {
             const result = await HttpUtils.request('/signup', 'POST', {
-                name: this.nameElement.value,
-                lastName: this.lastNameElement.value,
+                name: this.nameElement.value.split(" ")[0],
+                lastName: this.nameElement.value.split(" ")[1],
                 email: this.emailElement.value,
                 password: this.passwordElement.value,
                 passwordRepeat: this.passwordRepeatElement.value

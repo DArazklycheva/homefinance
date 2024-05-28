@@ -1,6 +1,7 @@
 import {Main} from "./components/main";
 import {Login} from "./components/auth/login";
 import {SignUp} from "./components/auth/sign-up";
+import {Logout} from "./components/auth/logout";
 import {IncomeView} from "./components/income/income-view";
 import {IncomeDelete} from "./components/income/income-delete";
 import {IncomeCreate} from "./components/income/income-create";
@@ -13,11 +14,13 @@ import {IncomeExpensesView} from "./components/income&expenses/income&expenses-v
 import {IncomeExpensesDelete} from "./components/income&expenses/income&expenses-delete";
 import {IncomeExpensesCreate} from "./components/income&expenses/income&expenses-create";
 import {IncomeExpensesEdit} from "./components/income&expenses/income&expenses-edit";
+import {AuthUtils} from "./utils/auth-utils";
 
 export class Router {
     constructor() {
         this.titlePageElement = document.getElementById('title');
         this.contentPageElement = document.getElementById('content');
+        this.userFullName = null;
 
         this.initEvents();
         this.routes = [
@@ -42,7 +45,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/auth/login.html',
                 useLayout: false,
                 load: () => {
-                    new Login();
+                    new Login(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -51,7 +54,13 @@ export class Router {
                 filePathTemplate: '/templates/pages/auth/sign-up.html',
                 useLayout: false,
                 load: () => {
-                    new SignUp();
+                    new SignUp(this.openNewRoute.bind(this));
+                }
+            },
+            {
+                route: '/logout',
+                load: () => {
+                    new Logout(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -168,13 +177,46 @@ export class Router {
     initEvents() {
         window.addEventListener('DOMContentLoaded', this.activateRoute.bind(this));
         window.addEventListener('popstate', this.activateRoute.bind(this));
+        document.addEventListener('click', this.clickHandler.bind(this));
     }
 
-    async activateRoute() {
+    async openNewRoute(url) {
+        const currentRoute = window.location.pathname;
+        history.pushState({}, '', url);
+        await this.activateRoute(null, currentRoute);
+    }
+
+    async clickHandler(e) {
+        let element = null;
+        if (e.target.nodeName === 'A') {
+            element = e.target;
+        } else if (e.target.parentNode.nodeName === 'A') {
+            element = e.target.parentNode;
+        }
+
+        if (element) {
+            e.preventDefault();
+
+            const url = element.href.replace(window.location.origin, '');
+            if (!url || url === '/#' || url.startsWith('javascript:void(0)')) {
+                return;
+            }
+
+            await this.openNewRoute(url);
+        }
+    }
+
+    async activateRoute(e, oldRoute = null) {
+        if (oldRoute) {
+            const currentRoute = this.routes.find(item => item.route === oldRoute);
+            // console.log(currentRoute);
+        }
+
         const urlRoute = window.location.pathname;
         const newRoute = this.routes.find(item => item.route === urlRoute);
 
         if (newRoute) {
+
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title + ' | Lumincoin Finance';
             }
@@ -184,6 +226,21 @@ export class Router {
                 if (newRoute.useLayout) {
                     this.contentPageElement.innerHTML = await fetch(newRoute.useLayout).then(response => response.text());
                     contentBlock = document.getElementById('content-layout');
+
+                    this.profileNameElement = document.getElementById('profile-name');
+                    if (!this.userFullName) {
+                        let userInfo = AuthUtils.getAuthInfo(AuthUtils.userTokenKey);
+                        if (userInfo) {
+                            userInfo = JSON.parse(userInfo);
+                            if (userInfo.name && userInfo.lastName) {
+                                this.userFullName = userInfo.name + ' ' + userInfo.lastName;
+                            }
+                        } else {
+                            await this.openNewRoute('/login');
+                        }
+                    }
+                    this.profileNameElement.innerText = this.userFullName;
+
                 }
                 contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
             }
@@ -193,8 +250,8 @@ export class Router {
             }
         } else {
             console.log('No route found');
-            window.location = '/404';
+            history.pushState({}, '', '/404');
+            await this.activateRoute();
         }
     }
-
 }

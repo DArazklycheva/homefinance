@@ -2,7 +2,7 @@ import {Main} from "./components/main";
 import {Login} from "./components/auth/login";
 import {SignUp} from "./components/auth/sign-up";
 import {Logout} from "./components/auth/logout";
-import {IncomeView} from "./components/income/income-view";
+import {IncomeList} from "./components/income/income-list";
 import {IncomeDelete} from "./components/income/income-delete";
 import {IncomeCreate} from "./components/income/income-create";
 import {IncomeEdit} from "./components/income/income-edit";
@@ -66,10 +66,10 @@ export class Router {
             {
                 route: '/income',
                 title: 'Доходы',
-                filePathTemplate: '/templates/pages/income/view.html',
+                filePathTemplate: '/templates/pages/income/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeView();
+                    new IncomeList(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -78,7 +78,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/income/delete.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeDelete();
+                    new IncomeDelete(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -87,7 +87,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/income/create.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeCreate();
+                    new IncomeCreate(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -96,7 +96,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/income/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeEdit();
+                    new IncomeEdit(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -235,9 +235,10 @@ export class Router {
                             if (userInfo.name && userInfo.lastName) {
                                 this.userFullName = userInfo.name + ' ' + userInfo.lastName;
                             }
-                        } else {
-                            await this.openNewRoute('/login');
                         }
+                        // else {
+                        //     await this.openNewRoute('/login');
+                        // }
                     }
                     this.profileNameElement.innerText = this.userFullName;
 

@@ -6,11 +6,11 @@ import {IncomeList} from "./components/income/income-list";
 import {IncomeDelete} from "./components/income/income-delete";
 import {IncomeCreate} from "./components/income/income-create";
 import {IncomeEdit} from "./components/income/income-edit";
-import {ExpensesView} from "./components/expenses/expenses-view";
+import {ExpensesList} from "./components/expenses/expenses-list";
 import {ExpensesDelete} from "./components/expenses/expenses-delete";
 import {ExpensesCreate} from "./components/expenses/expenses-create";
 import {ExpensesEdit} from "./components/expenses/expenses-edit";
-import {IncomeExpensesView} from "./components/income&expenses/income&expenses-view";
+import {IncomeExpensesList} from "./components/income&expenses/income&expenses-list";
 import {IncomeExpensesDelete} from "./components/income&expenses/income&expenses-delete";
 import {IncomeExpensesCreate} from "./components/income&expenses/income&expenses-create";
 import {IncomeExpensesEdit} from "./components/income&expenses/income&expenses-edit";
@@ -102,10 +102,10 @@ export class Router {
             {
                 route: '/expenses',
                 title: 'Расходы',
-                filePathTemplate: '/templates/pages/expenses/view.html',
+                filePathTemplate: '/templates/pages/expenses/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesView();
+                    new ExpensesList(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -114,7 +114,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/expenses/delete.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesDelete();
+                    new ExpensesDelete(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -123,7 +123,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/expenses/create.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesCreate();
+                    new ExpensesCreate(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -132,16 +132,16 @@ export class Router {
                 filePathTemplate: '/templates/pages/expenses/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesEdit();
+                    new ExpensesEdit(this.openNewRoute.bind(this));
                 }
             },
             {
                 route: '/income&expenses',
                 title: 'Доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/view.html',
+                filePathTemplate: '/templates/pages/income&expenses/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesView();
+                    new IncomeExpensesList();
                 }
             },
             {

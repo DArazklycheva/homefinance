@@ -6,10 +6,10 @@ import {IncomeList} from "./components/income/income-list";
 import {IncomeDelete} from "./components/income/income-delete";
 import {IncomeCreate} from "./components/income/income-create";
 import {IncomeEdit} from "./components/income/income-edit";
-import {ExpensesList} from "./components/expenses/expenses-list";
-import {ExpensesDelete} from "./components/expenses/expenses-delete";
-import {ExpensesCreate} from "./components/expenses/expenses-create";
-import {ExpensesEdit} from "./components/expenses/expenses-edit";
+import {ExpenseList} from "./components/expense/expense-list";
+import {ExpenseDelete} from "./components/expense/expense-delete";
+import {ExpenseCreate} from "./components/expense/expense-create";
+import {ExpenseEdit} from "./components/expense/expense-edit";
 import {IncomeExpensesList} from "./components/income&expenses/income&expenses-list";
 import {IncomeExpensesDelete} from "./components/income&expenses/income&expenses-delete";
 import {IncomeExpensesCreate} from "./components/income&expenses/income&expenses-create";
@@ -100,39 +100,39 @@ export class Router {
                 }
             },
             {
-                route: '/expenses',
+                route: '/expense',
                 title: 'Расходы',
-                filePathTemplate: '/templates/pages/expenses/list.html',
+                filePathTemplate: '/templates/pages/expense/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesList(this.openNewRoute.bind(this));
+                    new ExpenseList(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/expenses/delete',
+                route: '/expense/delete',
                 title: 'Удалить расход',
-                filePathTemplate: '/templates/pages/expenses/delete.html',
+                filePathTemplate: '/templates/pages/expense/delete.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesDelete(this.openNewRoute.bind(this));
+                    new ExpenseDelete(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/expenses/create',
+                route: '/expense/create',
                 title: 'Создать расход',
-                filePathTemplate: '/templates/pages/expenses/create.html',
+                filePathTemplate: '/templates/pages/expense/create.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesCreate(this.openNewRoute.bind(this));
+                    new ExpenseCreate(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/expenses/edit',
+                route: '/expense/edit',
                 title: 'Редактировать расход',
-                filePathTemplate: '/templates/pages/expenses/edit.html',
+                filePathTemplate: '/templates/pages/expense/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesEdit(this.openNewRoute.bind(this));
+                    new ExpenseEdit(this.openNewRoute.bind(this));
                 }
             },
             {

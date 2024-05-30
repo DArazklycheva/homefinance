@@ -1,8 +1,8 @@
-<section class="income_expenses-delete m-5">
+<section class="operation-delete m-5">
     <h1 class="pt-5">Доходы и расходы</h1>
     <div class="btns mt-4">
-        <a href="/" class="btn btn-success me-2">Создать доход</a>
-        <a href="/" class="btn btn-danger">Создать расход</a>
+        <a href="/operation/create" class="btn btn-success me-2">Создать доход</a>
+        <a href="/operation/create" class="btn btn-danger">Создать расход</a>
     </div>
     <div class="time-interval mt-4">
         <button type="button" class="btn btn-outline-secondary me-3 active">Сегодня</button>
@@ -76,8 +76,8 @@
     <div class="popup-container d-flex w-100 h-100">
         <div class="popup-body text-center m-auto" id="popup-body">
             <h6 class="mb-3">Вы действительно хотите удалить операцию?</h6>
-            <a href="/" class="btn btn-success me-2">Да, удалить</a>
-            <a href="/" class="btn btn-danger">Не удалять</a>
+            <button type="button" class="btn btn-success me-2" id="deleteButton">Да, удалить</button>
+            <a href="/operation" class="btn btn-danger">Не удалять</a>
         </div>
     </div>
 </div>

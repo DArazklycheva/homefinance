@@ -10,10 +10,10 @@ import {ExpenseList} from "./components/expense/expense-list";
 import {ExpenseDelete} from "./components/expense/expense-delete";
 import {ExpenseCreate} from "./components/expense/expense-create";
 import {ExpenseEdit} from "./components/expense/expense-edit";
-import {IncomeExpensesList} from "./components/income&expenses/income&expenses-list";
-import {IncomeExpensesDelete} from "./components/income&expenses/income&expenses-delete";
-import {IncomeExpensesCreate} from "./components/income&expenses/income&expenses-create";
-import {IncomeExpensesEdit} from "./components/income&expenses/income&expenses-edit";
+import {OperationList} from "./components/operation/operation-list";
+import {OperationDelete} from "./components/operation/operation-delete";
+import {OperationCreate} from "./components/operation/operation-create";
+import {OperationEdit} from "./components/operation/operation-edit";
 import {AuthUtils} from "./utils/auth-utils";
 
 export class Router {
@@ -136,39 +136,39 @@ export class Router {
                 }
             },
             {
-                route: '/income&expenses',
+                route: '/operation',
                 title: 'Доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/list.html',
+                filePathTemplate: '/templates/pages/operation/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesList();
+                    new OperationList();
                 }
             },
             {
-                route: '/income&expenses/delete',
+                route: '/operation/delete',
                 title: 'Удалить доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/delete.html',
+                filePathTemplate: '/templates/pages/operation/delete.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesDelete();
+                    new OperationDelete();
                 }
             },
             {
-                route: '/income&expenses/create',
+                route: '/operation/create',
                 title: 'Создать доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/create.html',
+                filePathTemplate: '/templates/pages/operation/create.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesCreate();
+                    new OperationCreate();
                 }
             },
             {
-                route: '/income&expenses/edit',
+                route: '/operation/edit',
                 title: 'Редактировать доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/edit.html',
+                filePathTemplate: '/templates/pages/operation/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesEdit();
+                    new OperationEdit();
                 }
             },
         ];

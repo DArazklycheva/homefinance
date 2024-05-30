@@ -1,4 +1,4 @@
-export class IncomeExpensesList {
+export class OperationList {
     constructor() {
         console.log('IncomeExpensesList');
     }

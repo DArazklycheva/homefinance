@@ -1,15 +1,29 @@
 <section class="main m-5">
     <h1 class="pt-5">Главная</h1>
     <div class="time-interval mt-5">
-        <button type="button" class="btn btn-outline-secondary me-3 active">Сегодня</button>
-        <button type="button" class="btn btn-outline-secondary me-3">Неделя</button>
-        <button type="button" class="btn btn-outline-secondary me-3">Месяц</button>
-        <button type="button" class="btn btn-outline-secondary me-3">Год</button>
-        <button type="button" class="btn btn-outline-secondary me-3">Все</button>
-        <button type="button" class="btn btn-outline-secondary me-3">Интервал</button>
+        <input type="checkbox" class="btn-check" id="checkboxToday" autocomplete="off" checked>
+        <label class="btn btn-outline-secondary me-3" for="checkboxToday" style="width: 100px;">Сегодня</label>
+
+        <input type="checkbox" class="btn-check" id="checkboxWeek" autocomplete="off">
+        <label class="btn btn-outline-secondary me-3" for="checkboxWeek" style="width: 100px;">Неделя</label>
+
+        <input type="checkbox" class="btn-check" id="checkboxMonth" autocomplete="off">
+        <label class="btn btn-outline-secondary me-3" for="checkboxMonth" style="width: 100px;">Месяц</label>
+
+        <input type="checkbox" class="btn-check" id="checkboxYear" autocomplete="off">
+        <label class="btn btn-outline-secondary me-3" for="checkboxYear" style="width: 100px;">Год</label>
+
+        <input type="checkbox" class="btn-check" id="checkboxAll" autocomplete="off">
+        <label class="btn btn-outline-secondary me-3" for="checkboxAll" style="width: 100px;">Все</label>
+
+        <input type="checkbox" class="btn-check" id="checkboxInterval" autocomplete="off">
+        <label class="btn btn-outline-secondary me-3" for="checkboxInterval" style="width: 100px;">Интервал</label>
+
         <div class="d-inline-block">
-            с <button type="button" class="btn btn-link text-secondary">Дата</button>
-            по <button type="button" class="btn btn-link text-secondary">Дата</button>
+            с
+            <button type="button" class="btn btn-link text-secondary" style="width: 100px;">Дата</button>
+            по
+            <button type="button" class="btn btn-link text-secondary" style="width: 100px;">Дата</button>
         </div>
     </div>
 

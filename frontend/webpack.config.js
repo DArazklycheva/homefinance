@@ -41,6 +41,8 @@ module.exports = {
                 {from: "./src/static/images", to: "images"},
                 {from: "./node_modules/bootstrap/dist/css/bootstrap.min.css", to: "css"},
                 {from: "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js", to: "js"},
+                {from: "./node_modules/air-datepicker/air-datepicker.css", to: "css"},
+                {from: "./node_modules/air-datepicker/air-datepicker.js", to: "js"},
             ],
         }),
     ],

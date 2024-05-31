@@ -1,9 +1,17 @@
 import {HttpUtils} from "../../utils/http-utils";
+import AirDatepicker from "air-datepicker";
 
 export class OperationList {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
         this.getOperations().then();
+
+        new AirDatepicker('#airDatepicker', {
+            buttons: ['today', 'clear']
+        });
+        new AirDatepicker('#airDatepicker2', {
+            buttons: ['today', 'clear']
+        });
     }
 
     async getOperations() {

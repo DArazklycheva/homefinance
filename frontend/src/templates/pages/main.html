@@ -1,31 +1,31 @@
 <section class="main m-5">
     <h1 class="pt-5">Главная</h1>
     <div class="time-interval mt-5">
-        <input type="checkbox" class="btn-check" id="checkboxToday" autocomplete="off" checked>
-        <label class="btn btn-outline-secondary me-3" for="checkboxToday" style="width: 100px;">Сегодня</label>
+        <input type="radio" class="btn-check" id="radioBtnToday" autocomplete="off" data-interval="today" checked name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnToday" style="width: 100px;">Сегодня</label>
 
-        <input type="checkbox" class="btn-check" id="checkboxWeek" autocomplete="off">
-        <label class="btn btn-outline-secondary me-3" for="checkboxWeek" style="width: 100px;">Неделя</label>
+        <input type="radio" class="btn-check" id="radioBtnWeek" autocomplete="off" data-interval="week" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnWeek" style="width: 100px;">Неделя</label>
 
-        <input type="checkbox" class="btn-check" id="checkboxMonth" autocomplete="off">
-        <label class="btn btn-outline-secondary me-3" for="checkboxMonth" style="width: 100px;">Месяц</label>
+        <input type="radio" class="btn-check" id="radioBtnMonth" autocomplete="off" data-interval="month" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnMonth" style="width: 100px;">Месяц</label>
 
-        <input type="checkbox" class="btn-check" id="checkboxYear" autocomplete="off">
-        <label class="btn btn-outline-secondary me-3" for="checkboxYear" style="width: 100px;">Год</label>
+        <input type="radio" class="btn-check" id="radioBtnYear" autocomplete="off" data-interval="year" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnYear" style="width: 100px;">Год</label>
 
-        <input type="checkbox" class="btn-check" id="checkboxAll" autocomplete="off">
-        <label class="btn btn-outline-secondary me-3" for="checkboxAll" style="width: 100px;">Все</label>
+        <input type="radio" class="btn-check" id="radioBtnAll" autocomplete="off" data-interval="all" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnAll" style="width: 100px;">Все</label>
 
-        <input type="checkbox" class="btn-check" id="checkboxInterval" autocomplete="off">
-        <label class="btn btn-outline-secondary me-3" for="checkboxInterval" style="width: 100px;">Интервал</label>
+        <input type="radio" class="btn-check" id="radioBtnInterval" autocomplete="off" data-interval="interval" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnInterval" style="width: 100px;">Интервал</label>
 
         <div class="d-inline-block">
             с
+            <label for="airDatepicker"></label>
             <input type="text" id="airDatepicker" class="form-control d-inline-block me-3" style="width: 109px; border: none; text-decoration: underline;" placeholder="Дата">
-            <!--            <button type="button" class="btn btn-link text-secondary" style="width: 100px;">Дата</button>-->
             по
+            <label for="airDatepicker2"></label>
             <input type="text" id="airDatepicker2" class="form-control d-inline-block me-3" style="width: 109px; border: none; text-decoration: underline;" placeholder="Дата">
-            <!--            <button type="button" class="btn btn-link text-secondary" style="width: 100px;">Дата</button>-->
         </div>
     </div>
 

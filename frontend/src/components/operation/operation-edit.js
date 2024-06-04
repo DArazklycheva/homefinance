@@ -1,4 +1,5 @@
 import {HttpUtils} from "../../utils/http-utils";
+import AirDatepicker from "air-datepicker";
 
 export class OperationEdit {
     constructor(openNewRoute) {
@@ -13,13 +14,19 @@ export class OperationEdit {
 
         document.getElementById('updateButton').addEventListener('click', this.updateOperation.bind(this));
 
-        this.operationEditInputNameElement = document.getElementById('operationEditInputName');
+        this.operationEditSelectTypeElement = document.getElementById('operationEditSelectType');
         this.operationEditInputCategoryElement = document.getElementById('operationEditInputCategory');
         this.operationEditInputAmountElement = document.getElementById('operationEditInputAmount');
-        this.operationEditInputDateElement = document.getElementById('operationEditInputDate');
+        // this.operationEditInputDateElement = document.getElementById('operationEditInputDate');
+        this.airDatepickerElement = document.getElementById('airDatepicker');
         this.operationEditInputCommentElement = document.getElementById('operationEditInputComment');
 
         this.getOperation(id).then();
+
+        new AirDatepicker('#airDatepicker', {
+            buttons: ['today', 'clear'],
+            dateFormat: 'yyyy-MM-dd',
+        });
     }
 
     async getOperation(id) {
@@ -38,10 +45,10 @@ export class OperationEdit {
     }
 
     showOperation(operation) {
-        this.operationEditInputNameElement.value = operation.category;
-        this.operationEditInputCategoryElement.value = operation.type;
+        this.operationEditSelectTypeElement.value = operation.type;
+        this.operationEditInputCategoryElement.value = operation.category;
         this.operationEditInputAmountElement.value = operation.amount;
-        this.operationEditInputDateElement.value = operation.date;
+        this.airDatepickerElement.value = operation.date;
         this.operationEditInputCommentElement.value = operation.comment;
     }
 
@@ -49,10 +56,10 @@ export class OperationEdit {
         let isValid = true;
 
         const validations = [
-            this.operationEditInputNameElement,
+            this.operationEditSelectTypeElement,
             this.operationEditInputCategoryElement,
             this.operationEditInputAmountElement,
-            this.operationEditInputDateElement,
+            this.airDatepickerElement,
             this.operationEditInputCommentElement
         ];
 
@@ -74,17 +81,17 @@ export class OperationEdit {
         if (this.validateForm()) {
 
             const changedData = {};
-            if (this.operationEditInputNameElement.value !== this.operationOriginalData.category) {
-                changedData.category = this.operationEditInputNameElement.value;
+            if (this.operationEditSelectTypeElement.value !== this.operationOriginalData.type) {
+                changedData.type = this.operationEditSelectTypeElement.value;
             }
-            if (this.operationEditInputCategoryElement.value !== this.operationOriginalData.type) {
-                changedData.type = this.operationEditInputCategoryElement.value;
+            if (this.operationEditInputCategoryElement.value !== this.operationOriginalData.category) {
+                changedData.category = this.operationEditInputCategoryElement.value;
             }
-            if (this.operationEditInputAmountElement.value !== this.operationOriginalData.amount) {
-                changedData.amount = this.operationEditInputAmountElement.value;
+            if (this.operationEditInputAmountElement.value !== parseInt(this.operationOriginalData.amount)) {
+                changedData.amount = parseInt(this.operationEditInputAmountElement.value);
             }
-            if (this.operationEditInputDateElement.value !== this.operationOriginalData.date) {
-                changedData.date = this.operationEditInputDateElement.value;
+            if (this.airDatepickerElement.value !== this.operationOriginalData.date) {
+                changedData.date = this.airDatepickerElement.value;
             }
             if (this.operationEditInputCommentElement.value !== this.operationOriginalData.comment) {
                 changedData.comment = this.operationEditInputCommentElement.value;
@@ -92,6 +99,7 @@ export class OperationEdit {
 
             if (Object.keys(changedData).length > 0) {
                 const result = await HttpUtils.request('/operations/' + this.operationOriginalData.id, 'PUT', true, changedData);
+                console.log("result", result)
                 if (result.redirect) {
                     return this.openNewRoute(result.redirect);
                 }

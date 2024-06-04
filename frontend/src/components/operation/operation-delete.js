@@ -11,13 +11,39 @@ export class OperationDelete {
             return this.openNewRoute('/');
         }
 
-        this.getOperations().then();
+        this.getOperations('today').then();
+
+        this.radioBtnTodayElement = document.getElementById('radioBtnToday');
+        this.radioBtnWeekElement = document.getElementById('radioBtnWeek');
+        this.radioBtnMonthElement = document.getElementById('radioBtnMonth');
+        this.radioBtnYearElement = document.getElementById('radioBtnYear');
+        this.radioBtnAllElement = document.getElementById('radioBtnAll');
+        this.radioBtnIntervalElement = document.getElementById('radioBtnInterval');
+
+        this.getIntervals();
 
         document.getElementById('deleteButton').addEventListener('click', this.deleteOperation.bind(this));
     }
 
-    async getOperations() {
-        const result = await HttpUtils.request('/operations?period=interval&dateFrom=2022-09-12&dateTo=2022-09-13');
+    getIntervals() {
+        const intervals = [
+            this.radioBtnTodayElement,
+            this.radioBtnWeekElement,
+            this.radioBtnMonthElement,
+            this.radioBtnYearElement,
+            this.radioBtnAllElement,
+            this.radioBtnIntervalElement
+        ];
+
+        for (let i = 0; i < intervals.length; i++) {
+            intervals[i].onclick = (e) => {
+                this.getOperations(e.target.getAttribute('data-interval'));
+            };
+        }
+    }
+
+    async getOperations(interval) {
+        const result = await HttpUtils.request('/operations?period=' + interval);
         if (result.redirect) {
             return this.openNewRoute(result.redirect);
         }
@@ -41,7 +67,8 @@ export class OperationDelete {
             const typeElement = document.createElement('td');
             trElement.appendChild(typeElement);
             typeElement.innerText = operations[i].type;
-            typeElement !== 'expense' || typeElement !== 'расходы' ? typeElement.style.color = '#dc3546' : typeElement.style.color = '#1a8754';
+            typeElement.setAttribute('value', operations[i].type);
+            typeElement.getAttribute('value') === 'expense' ? typeElement.style.color = '#dc3546' : typeElement.style.color = '#1a8754';
 
             trElement.insertCell().innerText = operations[i].category;
             trElement.insertCell().innerText = operations[i].amount + '$';

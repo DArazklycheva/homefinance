@@ -1,25 +1,77 @@
 import {HttpUtils} from "../../utils/http-utils";
+import AirDatepicker from "air-datepicker";
 
 export class OperationCreate {
     constructor(openNewRoute) {
         this.openNewRoute = openNewRoute;
         document.getElementById('createButton').addEventListener('click', this.createOperation.bind(this));
 
-        this.operationCreateInputNameElement = document.getElementById('operationCreateInputName');
-        this.operationCreateInputCategoryElement = document.getElementById('operationCreateInputCategory');
+        this.operationCreateSelectTypeElement = document.getElementById('operationCreateSelectType');
+        this.operationCreateSelectCategoryElement = document.getElementById('operationCreateSelectCategory');
         this.operationCreateInputAmountElement = document.getElementById('operationCreateInputAmount');
-        this.operationCreateInputDateElement = document.getElementById('operationCreateInputDate');
+        this.airDatepickerElement = document.getElementById('airDatepicker');
         this.operationCreateInputCommentElement = document.getElementById('operationCreateInputComment');
+
+        new AirDatepicker('#airDatepicker', {
+            buttons: ['today', 'clear'],
+            dateFormat: 'yyyy-MM-dd',
+        });
+
+        const urlParams = new URLSearchParams(window.location.search);
+
+        this.type = urlParams.get('type');
+        if (!this.type) {
+            return this.openNewRoute('/');
+        }
+
+        this.getTypes();
+        this.getCategories().then();
+    }
+
+    getTypes() {
+        if (this.type === 'expense') {
+            const option = document.createElement('option');
+            option.innerText = 'expense';
+            this.operationCreateSelectTypeElement.appendChild(option);
+        } else {
+            const option = document.createElement('option');
+            option.innerText = 'income';
+            this.operationCreateSelectTypeElement.appendChild(option);
+        }
+    }
+    async getCategories() {
+        let result = null;
+        if (this.operationCreateSelectTypeElement.value === 'expense') {
+            result = await HttpUtils.request('/categories/expense');
+        } else if (this.operationCreateSelectTypeElement.value === 'income') {
+            result = await HttpUtils.request('/categories/income');
+        }
+
+        if (result) {
+            if (result.redirect) {
+                return this.openNewRoute(result.redirect);
+            }
+
+            if (result.error || !result.response || (result.response && (result.response.error || !result.response))) {
+                return alert('Возникла ошибка при запросе доходов / расходов. Обратитесь в поддержку.');
+            }
+
+            const categories = result.response;
+            for (let i = 0; i < categories.length; i++) {
+                const option = document.createElement('option');
+                option.value = categories[i].id;
+                option.innerText = categories[i].title;
+                this.operationCreateSelectCategoryElement.appendChild(option);
+            }
+        }
     }
 
     validateForm() {
         let isValid = true;
 
         const validations = [
-            this.operationCreateInputNameElement,
-            this.operationCreateInputCategoryElement,
             this.operationCreateInputAmountElement,
-            this.operationCreateInputDateElement,
+            this.airDatepickerElement,
             this.operationCreateInputCommentElement
         ];
 
@@ -40,10 +92,11 @@ export class OperationCreate {
 
         if (this.validateForm()) {
             const result = await HttpUtils.request('/operations', 'POST', true, {
-                type: this.operationCreateInputCategoryElement.value,
-                amount: this.operationCreateInputAmountElement.value,
-                date: this.operationCreateInputDateElement.value,
+                type: this.operationCreateSelectTypeElement.value,
+                amount: parseInt(this.operationCreateInputAmountElement.value),
+                date: this.airDatepickerElement.value,
                 comment: this.operationCreateInputCommentElement.value,
+                category_id: this.operationCreateSelectCategoryElement.value
             });
             if (result.redirect) {
                 return this.openNewRoute(result.redirect);
@@ -56,7 +109,5 @@ export class OperationCreate {
 
             return this.openNewRoute('/operation');
         }
-
     }
-
 }

@@ -1,6 +1,7 @@
 <section class="main m-5">
     <h1 class="pt-5">Главная</h1>
-    <div class="time-interval mt-5">
+    <div class="time-interval mt-4">
+
         <input type="radio" class="btn-check" id="radioBtnToday" autocomplete="off" data-interval="today" checked name="interval">
         <label class="btn btn-outline-secondary me-3" for="radioBtnToday" style="width: 100px;">Сегодня</label>
 
@@ -29,13 +30,25 @@
         </div>
     </div>
 
-    <div class="information d-flex justify-content-between mt-5">
-        <div class="information-income">
-            <img class="mb-5" src="/images/income.png" alt="Income">
+    <div class="schedule d-flex justify-content-evenly mt-5" id="schedule">
+        <div class="schedule-circle income" id="income">
+            <div class="schedule-title text-center mb-2">Доходы</div>
+            <canvas class="w-100" id="myIncomes"></canvas>
         </div>
         <div class="divider"></div>
-        <div class="information-expense">
-            <img class="mb-5" src="/images/expense.png" alt="Expense">
+        <div class="schedule-circle expense" id="expense">
+            <div class="schedule-title text-center mb-2">Расходы</div>
+            <canvas class="w-100" id="myExpense"></canvas>
         </div>
     </div>
+
+<!--    <div class="information d-flex justify-content-between mt-5">-->
+<!--        <div class="information-income">-->
+<!--            <img class="mb-5" src="/images/income.png" alt="Income">-->
+<!--        </div>-->
+<!--        <div class="divider"></div>-->
+<!--        <div class="information-expense">-->
+<!--            <img class="mb-5" src="/images/expense.png" alt="Expense">-->
+<!--        </div>-->
+<!--    </div>-->
 </section>

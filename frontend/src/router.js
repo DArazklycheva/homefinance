@@ -30,7 +30,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/main.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Main();
+                    new Main(this.openNewRoute.bind(this));
                 }
             },
             {

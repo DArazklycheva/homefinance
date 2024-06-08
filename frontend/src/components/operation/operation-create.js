@@ -1,5 +1,6 @@
 import {HttpUtils} from "../../utils/http-utils";
 import AirDatepicker from "air-datepicker";
+import {formatNumber} from "chart.js/helpers";
 
 export class OperationCreate {
     constructor(openNewRoute) {
@@ -96,7 +97,7 @@ export class OperationCreate {
                 amount: parseInt(this.operationCreateInputAmountElement.value),
                 date: this.airDatepickerElement.value,
                 comment: this.operationCreateInputCommentElement.value,
-                category_id: this.operationCreateSelectCategoryElement.value
+                category_id: Number(this.operationCreateSelectCategoryElement.value)
             });
             if (result.redirect) {
                 return this.openNewRoute(result.redirect);

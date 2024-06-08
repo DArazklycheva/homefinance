@@ -8,11 +8,19 @@ export class Main {
         this.getOperations('all').then();
 
         new AirDatepicker('#airDatepicker', {
-            buttons: ['today', 'clear']
+            buttons: ['today', 'clear'],
+            dateFormat: 'yyyy-MM-dd',
         });
         new AirDatepicker('#airDatepicker2', {
-            buttons: ['today', 'clear']
+            buttons: ['today', 'clear'],
+            dateFormat: 'yyyy-MM-dd',
         });
+
+        this.dateFrom = null;
+        this.dateTo = null;
+
+        this.myIncomesChart = null;
+        this.myExpenseChart = null;
 
         this.radioBtnTodayElement = document.getElementById('radioBtnToday');
         this.radioBtnWeekElement = document.getElementById('radioBtnWeek');
@@ -25,6 +33,22 @@ export class Main {
 
         this.myIncomes = document.getElementById('myIncomes').getContext('2d');
         this.myExpense = document.getElementById('myExpense').getContext('2d');
+
+        document.getElementById('airDatepicker').addEventListener('blur', (e) => {
+            this.dateFrom = e.target.value;
+            this.removeAttributedDisabled();
+        })
+
+        document.getElementById('airDatepicker2').addEventListener('blur', (e) => {
+            this.dateTo = e.target.value;
+            this.removeAttributedDisabled();
+        })
+    }
+
+    removeAttributedDisabled() {
+        if (this.dateFrom && this.dateTo) {
+            this.radioBtnIntervalElement.removeAttribute('disabled');
+        }
     }
 
     getIntervals() {
@@ -45,7 +69,13 @@ export class Main {
     }
 
     async getOperations(interval) {
-        const result = await HttpUtils.request('/operations?period=' + interval);
+        let currentInterval = interval;
+
+        if (currentInterval === 'interval') {
+            currentInterval += `&dateFrom=${this.dateFrom}&dateTo=${this.dateTo}`;
+        }
+
+        const result = await HttpUtils.request('/operations?period=' + currentInterval);
         if (result.redirect) {
             return this.openNewRoute(result.redirect);
         }
@@ -59,21 +89,25 @@ export class Main {
     }
 
     showScheduleIncome(operations) {
+        if (this.myIncomesChart) {
+            this.myIncomesChart.destroy();
+        }
         const operationsIncomeAmount = [];
+        const operationsIncomeLabels = [];
         operations.forEach((element) => {
             if (element.type === 'income') {
                 operationsIncomeAmount.push(element.amount);
+                operationsIncomeLabels.push(element.category);
             }
         });
 
-        let myIncomesChart = new Chart(this.myIncomes, {
+        this.myIncomesChart = new Chart(this.myIncomes, {
             type: 'pie',
             data: {
-                labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+                labels: operationsIncomeLabels,
                 datasets: [{
                     label: 'My Incomes',
                     data: operationsIncomeAmount,
-                    // backgroundColor: ['Red', 'Orange', 'Yellow', 'Green', 'Blue']
                 }]
             },
             options: {}
@@ -81,21 +115,26 @@ export class Main {
     }
 
     showScheduleExpense(operations) {
+        if (this.myExpenseChart) {
+            this.myExpenseChart.destroy();
+        }
+
         const operationsExpenseAmount = [];
+        const operationsExpenseLabels = [];
         operations.forEach((element) => {
             if (element.type === 'expense') {
                 operationsExpenseAmount.push(element.amount);
+                operationsExpenseLabels.push(element.category);
             }
         });
 
-        let myIncomesChart = new Chart(this.myExpense, {
+        this.myExpenseChart = new Chart(this.myExpense, {
             type: 'pie',
             data: {
-                labels: ['Red', 'Orange', 'Yellow', 'Green', 'Blue'],
+                labels: operationsExpenseLabels,
                 datasets: [{
                     label: 'My Incomes',
                     data: operationsExpenseAmount,
-                    // backgroundColor: ['Red', 'Orange', 'Yellow', 'Green', 'Blue']
                 }]
             },
             options: {}

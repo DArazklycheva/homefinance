@@ -15,9 +15,9 @@ export class OperationEdit {
         document.getElementById('updateButton').addEventListener('click', this.updateOperation.bind(this));
 
         this.operationEditSelectTypeElement = document.getElementById('operationEditSelectType');
-        this.operationEditInputCategoryElement = document.getElementById('operationEditInputCategory');
+        // this.operationEditInputCategoryElement = document.getElementById('operationEditInputCategory');
+        this.operationEditSelectCategoryElement = document.getElementById('operationEditSelectCategory');
         this.operationEditInputAmountElement = document.getElementById('operationEditInputAmount');
-        // this.operationEditInputDateElement = document.getElementById('operationEditInputDate');
         this.airDatepickerElement = document.getElementById('airDatepicker');
         this.operationEditInputCommentElement = document.getElementById('operationEditInputComment');
 
@@ -27,6 +27,7 @@ export class OperationEdit {
             buttons: ['today', 'clear'],
             dateFormat: 'yyyy-MM-dd',
         });
+
     }
 
     async getOperation(id) {
@@ -45,8 +46,15 @@ export class OperationEdit {
     }
 
     showOperation(operation) {
+        console.log(operation)
         this.operationEditSelectTypeElement.value = operation.type;
-        this.operationEditInputCategoryElement.value = operation.category;
+
+        const option = document.createElement('option');
+        option.innerText = operation.category;
+        option.value = operation.id;
+        this.operationEditSelectCategoryElement.appendChild(option);
+        // this.operationEditSelectCategoryElement.value = operation.category;
+
         this.operationEditInputAmountElement.value = operation.amount;
         this.airDatepickerElement.value = operation.date;
         this.operationEditInputCommentElement.value = operation.comment;
@@ -56,8 +64,7 @@ export class OperationEdit {
         let isValid = true;
 
         const validations = [
-            this.operationEditSelectTypeElement,
-            this.operationEditInputCategoryElement,
+            // this.operationEditInputCategoryElement,
             this.operationEditInputAmountElement,
             this.airDatepickerElement,
             this.operationEditInputCommentElement
@@ -80,26 +87,17 @@ export class OperationEdit {
 
         if (this.validateForm()) {
 
-            const changedData = {};
-            if (this.operationEditSelectTypeElement.value !== this.operationOriginalData.type) {
-                changedData.type = this.operationEditSelectTypeElement.value;
-            }
-            if (this.operationEditInputCategoryElement.value !== this.operationOriginalData.category) {
-                changedData.category = this.operationEditInputCategoryElement.value;
-            }
-            if (this.operationEditInputAmountElement.value !== parseInt(this.operationOriginalData.amount)) {
-                changedData.amount = parseInt(this.operationEditInputAmountElement.value);
-            }
-            if (this.airDatepickerElement.value !== this.operationOriginalData.date) {
-                changedData.date = this.airDatepickerElement.value;
-            }
-            if (this.operationEditInputCommentElement.value !== this.operationOriginalData.comment) {
-                changedData.comment = this.operationEditInputCommentElement.value;
-            }
+            const changedData = {
+                type: this.operationEditSelectTypeElement.value,
+                category_id: this.operationEditSelectCategoryElement.value,
+                amount: parseInt(this.operationEditInputAmountElement.value),
+                date: this.airDatepickerElement.value,
+                comment: this.operationEditInputCommentElement.value,
+            };
 
             if (Object.keys(changedData).length > 0) {
                 const result = await HttpUtils.request('/operations/' + this.operationOriginalData.id, 'PUT', true, changedData);
-                console.log("result", result)
+
                 if (result.redirect) {
                     return this.openNewRoute(result.redirect);
                 }

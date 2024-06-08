@@ -6,11 +6,16 @@ export class OperationList {
         this.openNewRoute = openNewRoute;
         this.getOperations('today').then();
 
+        this.dateFrom = null;
+        this.dateTo = null;
+
         new AirDatepicker('#airDatepicker', {
-            buttons: ['today', 'clear']
+            buttons: ['today', 'clear'],
+            dateFormat: 'yyyy-MM-dd',
         });
         new AirDatepicker('#airDatepicker2', {
-            buttons: ['today', 'clear']
+            buttons: ['today', 'clear'],
+            dateFormat: 'yyyy-MM-dd',
         });
 
         this.radioBtnTodayElement = document.getElementById('radioBtnToday');
@@ -20,7 +25,23 @@ export class OperationList {
         this.radioBtnAllElement = document.getElementById('radioBtnAll');
         this.radioBtnIntervalElement = document.getElementById('radioBtnInterval');
 
+        document.getElementById('airDatepicker').addEventListener('blur', (e) => {
+            this.dateFrom = e.target.value;
+            this.removeAttributedDisabled();
+        })
+
+        document.getElementById('airDatepicker2').addEventListener('blur', (e) => {
+            this.dateTo = e.target.value;
+            this.removeAttributedDisabled();
+        })
+
         this.getIntervals();
+    }
+
+    removeAttributedDisabled() {
+        if (this.dateFrom && this.dateTo) {
+            this.radioBtnIntervalElement.removeAttribute('disabled');
+        }
     }
 
     getIntervals() {
@@ -41,7 +62,13 @@ export class OperationList {
     }
 
     async getOperations(interval) {
-        const result = await HttpUtils.request('/operations?period=' + interval);
+        let currentInterval = interval;
+
+        if (currentInterval === 'interval') {
+            currentInterval += `&dateFrom=${this.dateFrom}&dateTo=${this.dateTo}`;
+        }
+
+        const result = await HttpUtils.request('/operations?period=' + currentInterval);
         if (result.redirect) {
             return this.openNewRoute(result.redirect);
         }
@@ -55,6 +82,7 @@ export class OperationList {
 
     showOperations(operations) {
         const recordsElement = document.getElementById('records');
+        recordsElement.innerHTML = '';
         for (let i = 0; i < operations.length; i++) {
             const trElement = document.createElement('tr');
 

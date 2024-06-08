@@ -2,7 +2,7 @@
     <h1 class="pt-5">Главная</h1>
     <div class="time-interval mt-4">
 
-        <input type="radio" class="btn-check" id="radioBtnToday" autocomplete="off" data-interval="today" checked name="interval">
+        <input type="radio" class="btn-check" id="radioBtnToday" autocomplete="off" data-interval="today" name="interval">
         <label class="btn btn-outline-secondary me-3" for="radioBtnToday" style="width: 100px;">Сегодня</label>
 
         <input type="radio" class="btn-check" id="radioBtnWeek" autocomplete="off" data-interval="week" name="interval">
@@ -14,19 +14,19 @@
         <input type="radio" class="btn-check" id="radioBtnYear" autocomplete="off" data-interval="year" name="interval">
         <label class="btn btn-outline-secondary me-3" for="radioBtnYear" style="width: 100px;">Год</label>
 
-        <input type="radio" class="btn-check" id="radioBtnAll" autocomplete="off" data-interval="all" name="interval">
+        <input type="radio" class="btn-check" id="radioBtnAll" autocomplete="off" data-interval="all" name="interval" checked>
         <label class="btn btn-outline-secondary me-3" for="radioBtnAll" style="width: 100px;">Все</label>
 
-        <input type="radio" class="btn-check" id="radioBtnInterval" autocomplete="off" data-interval="interval" name="interval">
+        <input type="radio" class="btn-check" id="radioBtnInterval" autocomplete="off" data-interval="interval" name="interval" disabled>
         <label class="btn btn-outline-secondary me-3" for="radioBtnInterval" style="width: 100px;">Интервал</label>
 
         <div class="d-inline-block">
             с
             <label for="airDatepicker"></label>
-            <input type="text" id="airDatepicker" class="form-control d-inline-block me-3" style="width: 109px; border: none; text-decoration: underline;" placeholder="Дата">
+            <input type="text" id="airDatepicker" class="form-control d-inline-block me-3" style="width: 117px; border: none; text-decoration: underline;" placeholder="Дата">
             по
             <label for="airDatepicker2"></label>
-            <input type="text" id="airDatepicker2" class="form-control d-inline-block me-3" style="width: 109px; border: none; text-decoration: underline;" placeholder="Дата">
+            <input type="text" id="airDatepicker2" class="form-control d-inline-block me-3" style="width: 117px; border: none; text-decoration: underline;" placeholder="Дата">
         </div>
     </div>
 
@@ -41,14 +41,4 @@
             <canvas class="w-100" id="myExpense"></canvas>
         </div>
     </div>
-
-<!--    <div class="information d-flex justify-content-between mt-5">-->
-<!--        <div class="information-income">-->
-<!--            <img class="mb-5" src="/images/income.png" alt="Income">-->
-<!--        </div>-->
-<!--        <div class="divider"></div>-->
-<!--        <div class="information-expense">-->
-<!--            <img class="mb-5" src="/images/expense.png" alt="Expense">-->
-<!--        </div>-->
-<!--    </div>-->
 </section>

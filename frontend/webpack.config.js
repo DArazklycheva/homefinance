@@ -43,7 +43,6 @@ module.exports = {
                 {from: "./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js", to: "js"},
                 {from: "./node_modules/air-datepicker/air-datepicker.css", to: "css"},
                 {from: "./node_modules/air-datepicker/air-datepicker.js", to: "js"},
-                {from: "./node_modules/chart.js/dist/chart.js", to: "js"},
             ],
         }),
     ],

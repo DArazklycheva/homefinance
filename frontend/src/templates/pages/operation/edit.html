@@ -1,16 +1,21 @@
 <section class="operation-edit m-5">
     <h1 class="pt-5">Редактирование дохода / расхода</h1>
-    <div class="input flex-nowrap w-75 mt-5 mb-4">
+    <div class="input flex-nowrap w-75 mt-5">
         <select class="form-control" id="operationEditSelectType">
             <option>expense</option>
             <option>income</option>
         </select>
     </div>
-    <div class="input flex-nowrap w-75">
-        <input type="text" class="form-control" placeholder="Категория..." id="operationEditInputCategory">
-        <span id="operationEditInputCategory-error" class="error invalid-feedback">Заполните поле</span>
-        <label for="operationEditInputCategory"></label>
+    <div class="input flex-nowrap w-75 mb-4">
+        <label for="operationEditSelectCategory"></label>
+        <select class="form-control" id="operationEditSelectCategory">
+        </select>
     </div>
+<!--    <div class="input flex-nowrap w-75">-->
+<!--        <input type="text" class="form-control" placeholder="Категория..." id="operationEditInputCategory">-->
+<!--        <span id="operationEditInputCategory-error" class="error invalid-feedback">Заполните поле</span>-->
+<!--        <label for="operationEditInputCategory"></label>-->
+<!--    </div>-->
     <div class="input flex-nowrap w-75">
         <input type="text" class="form-control" placeholder="Сумма в $..." id="operationEditInputAmount">
         <span id="operationEditInputAmount-error" class="error invalid-feedback">Заполните поле</span>

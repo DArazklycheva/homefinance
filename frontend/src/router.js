@@ -216,11 +216,9 @@ export class Router {
         const newRoute = this.routes.find(item => item.route === urlRoute);
 
         if (newRoute) {
-
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title + ' | Lumincoin Finance';
             }
-
             if (newRoute.filePathTemplate) {
                 let contentBlock = this.contentPageElement;
                 if (newRoute.useLayout) {
@@ -236,12 +234,10 @@ export class Router {
                                 this.userFullName = userInfo.name + ' ' + userInfo.lastName;
                             }
                         }
-                        // else {
-                        //     await this.openNewRoute('/login');
-                        // }
                     }
                     this.profileNameElement.innerText = this.userFullName;
 
+                    this.activateMenuItem(newRoute);
                 }
                 contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
             }
@@ -252,7 +248,26 @@ export class Router {
         } else {
             console.log('No route found');
             history.pushState({}, '', '/404');
-            await this.activateRoute();
+            await this.activateRoute(null);
         }
+    }
+
+    activateMenuItem(route) {
+        document.querySelectorAll('.nav .nav-link').forEach(item => {
+            const href = item.getAttribute('href');
+            if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            const href = item.getAttribute('href');
+            if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
     }
 }

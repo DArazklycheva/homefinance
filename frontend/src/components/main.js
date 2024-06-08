@@ -133,7 +133,7 @@ export class Main {
             data: {
                 labels: operationsExpenseLabels,
                 datasets: [{
-                    label: 'My Incomes',
+                    label: 'My Expense',
                     data: operationsExpenseAmount,
                 }]
             },

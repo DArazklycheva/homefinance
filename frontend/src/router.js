@@ -15,6 +15,7 @@ import {OperationDelete} from "./components/operation/operation-delete";
 import {OperationCreate} from "./components/operation/operation-create";
 import {OperationEdit} from "./components/operation/operation-edit";
 import {AuthUtils} from "./utils/auth-utils";
+import {HttpUtils} from "./utils/http-utils";
 
 export class Router {
     constructor() {
@@ -236,6 +237,9 @@ export class Router {
                         }
                     }
                     this.profileNameElement.innerText = this.userFullName;
+
+                    // const resultBalance = await HttpUtils.request('/balance');
+                    // document.getElementById('balance').innerText = resultBalance.response.balance;
 
                     this.activateMenuItem(newRoute);
                 }

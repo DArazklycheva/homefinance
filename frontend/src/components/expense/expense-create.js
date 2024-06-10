@@ -1,30 +1,18 @@
 import {HttpUtils} from "../../utils/http-utils";
+import {Expense} from "./expense";
 
-export class ExpenseCreate {
+export class ExpenseCreate extends Expense {
     constructor(openNewRoute) {
-        this.openNewRoute = openNewRoute;
+        super(openNewRoute);
         document.getElementById('createButton').addEventListener('click', this.createExpense.bind(this));
 
         this.expenseCreateInputElement = document.getElementById('expenseCreateInput');
     }
 
-    validateForm() {
-        let isValid = true;
-
-        if (this.expenseCreateInputElement.value) {
-            this.expenseCreateInputElement.classList.remove('is-invalid');
-        } else {
-            this.expenseCreateInputElement.classList.add('is-invalid');
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
     async createExpense(e) {
         e.preventDefault();
 
-        if (this.validateForm()) {
+        if (this.validateForm(this.expenseCreateInputElement)) {
             const result = await HttpUtils.request('/categories/expense', 'POST', true, {
                 title: this.expenseCreateInputElement.value,
             });
@@ -39,7 +27,5 @@ export class ExpenseCreate {
 
             return this.openNewRoute('/expense');
         }
-
     }
-
 }

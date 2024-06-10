@@ -1,8 +1,9 @@
 import {HttpUtils} from "../../utils/http-utils";
+import {Income} from "./income";
 
-export class IncomeEdit {
+export class IncomeEdit extends Income{
     constructor(openNewRoute) {
-        this.openNewRoute = openNewRoute;
+        super(openNewRoute);
 
         const urlParams = new URLSearchParams(window.location.search);
 
@@ -37,23 +38,10 @@ export class IncomeEdit {
         this.incomeEditInputElement.value = income.title;
     }
 
-    validateForm() {
-        let isValid = true;
-
-        if (this.incomeEditInputElement.value) {
-            this.incomeEditInputElement.classList.remove('is-invalid');
-        } else {
-            this.incomeEditInputElement.classList.add('is-invalid');
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
     async updateIncome(e) {
         e.preventDefault();
 
-        if (this.validateForm()) {
+        if (this.validateForm(this.incomeEditInputElement)) {
 
             const changedData = {};
             if (this.incomeEditInputElement.value !== this.incomeOriginalData.title) {

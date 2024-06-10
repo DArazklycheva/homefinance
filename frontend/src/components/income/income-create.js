@@ -1,30 +1,18 @@
 import {HttpUtils} from "../../utils/http-utils";
+import {Income} from "./income";
 
-export class IncomeCreate {
+export class IncomeCreate extends Income {
     constructor(openNewRoute) {
-        this.openNewRoute = openNewRoute;
+        super(openNewRoute);
         document.getElementById('createButton').addEventListener('click', this.createIncome.bind(this));
 
         this.incomeCreateInputElement = document.getElementById('incomeCreateInput');
     }
 
-    validateForm() {
-        let isValid = true;
-
-        if (this.incomeCreateInputElement.value) {
-            this.incomeCreateInputElement.classList.remove('is-invalid');
-        } else {
-            this.incomeCreateInputElement.classList.add('is-invalid');
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
     async createIncome(e) {
         e.preventDefault();
 
-        if (this.validateForm()) {
+        if (this.validateForm(this.incomeCreateInputElement)) {
             const result = await HttpUtils.request('/categories/income', 'POST', true, {
                 title: this.incomeCreateInputElement.value,
             });

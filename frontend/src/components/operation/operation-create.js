@@ -1,10 +1,10 @@
 import {HttpUtils} from "../../utils/http-utils";
 import AirDatepicker from "air-datepicker";
-import {formatNumber} from "chart.js/helpers";
+import {Operation} from "./operation";
 
-export class OperationCreate {
+export class OperationCreate extends Operation {
     constructor(openNewRoute) {
-        this.openNewRoute = openNewRoute;
+        super(openNewRoute);
         document.getElementById('createButton').addEventListener('click', this.createOperation.bind(this));
 
         this.operationCreateSelectTypeElement = document.getElementById('operationCreateSelectType');
@@ -26,7 +26,7 @@ export class OperationCreate {
         }
 
         this.getTypes();
-        this.getCategories().then();
+        this.getCategories(this.type, this.operationCreateSelectCategoryElement).then();
     }
 
     getTypes() {
@@ -40,58 +40,14 @@ export class OperationCreate {
             this.operationCreateSelectTypeElement.appendChild(option);
         }
     }
-    async getCategories() {
-        let result = null;
-        if (this.operationCreateSelectTypeElement.value === 'expense') {
-            result = await HttpUtils.request('/categories/expense');
-        } else if (this.operationCreateSelectTypeElement.value === 'income') {
-            result = await HttpUtils.request('/categories/income');
-        }
-
-        if (result) {
-            if (result.redirect) {
-                return this.openNewRoute(result.redirect);
-            }
-
-            if (result.error || !result.response || (result.response && (result.response.error || !result.response))) {
-                return alert('Возникла ошибка при запросе доходов / расходов. Обратитесь в поддержку.');
-            }
-
-            const categories = result.response;
-            for (let i = 0; i < categories.length; i++) {
-                const option = document.createElement('option');
-                option.value = categories[i].id;
-                option.innerText = categories[i].title;
-                this.operationCreateSelectCategoryElement.appendChild(option);
-            }
-        }
-    }
-
-    validateForm() {
-        let isValid = true;
-
-        const validations = [
-            this.operationCreateInputAmountElement,
-            this.airDatepickerElement,
-            this.operationCreateInputCommentElement
-        ];
-
-        for (let i = 0; i < validations.length; i++) {
-            if (validations[i].value) {
-                validations[i].classList.remove('is-invalid');
-            } else {
-                validations[i].classList.add('is-invalid');
-                isValid = false;
-            }
-        }
-
-        return isValid;
-    }
-
     async createOperation(e) {
         e.preventDefault();
 
-        if (this.validateForm()) {
+        if (this.validateForm([
+            this.operationCreateInputAmountElement,
+            this.airDatepickerElement,
+            this.operationCreateInputCommentElement
+        ])) {
             const result = await HttpUtils.request('/operations', 'POST', true, {
                 type: this.operationCreateSelectTypeElement.value,
                 amount: parseInt(this.operationCreateInputAmountElement.value),

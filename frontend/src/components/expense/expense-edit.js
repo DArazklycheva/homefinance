@@ -1,8 +1,9 @@
 import {HttpUtils} from "../../utils/http-utils";
+import {Expense} from "./expense";
 
-export class ExpenseEdit {
+export class ExpenseEdit extends Expense {
     constructor(openNewRoute) {
-        this.openNewRoute = openNewRoute;
+        super(openNewRoute);
 
         const urlParams = new URLSearchParams(window.location.search);
 
@@ -37,23 +38,10 @@ export class ExpenseEdit {
         this.expenseEditInputElement.value = expense.title;
     }
 
-    validateForm() {
-        let isValid = true;
-
-        if (this.expenseEditInputElement.value) {
-            this.expenseEditInputElement.classList.remove('is-invalid');
-        } else {
-            this.expenseEditInputElement.classList.add('is-invalid');
-            isValid = false;
-        }
-
-        return isValid;
-    }
-
     async updateExpense(e) {
         e.preventDefault();
 
-        if (this.validateForm()) {
+        if (this.validateForm(this.expenseEditInputElement)) {
 
             const changedData = {};
             if (this.expenseEditInputElement.value !== this.expenseOriginalData.title) {

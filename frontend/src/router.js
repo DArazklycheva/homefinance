@@ -236,12 +236,13 @@ export class Router {
                             }
                         }
                     }
+                    this.activateMenuItem(newRoute);
+
                     this.profileNameElement.innerText = this.userFullName;
 
-                    // const resultBalance = await HttpUtils.request('/balance');
-                    // document.getElementById('balance').innerText = resultBalance.response.balance;
+                    const resultBalance = await HttpUtils.request('/balance');
+                    document.getElementById('balance').innerText = resultBalance.response.balance + '$';
 
-                    this.activateMenuItem(newRoute);
                 }
                 contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
             }

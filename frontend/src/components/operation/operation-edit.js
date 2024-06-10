@@ -1,9 +1,10 @@
 import {HttpUtils} from "../../utils/http-utils";
 import AirDatepicker from "air-datepicker";
+import {Operation} from "./operation";
 
-export class OperationEdit {
+export class OperationEdit extends Operation {
     constructor(openNewRoute) {
-        this.openNewRoute = openNewRoute;
+        super(openNewRoute);
 
         const urlParams = new URLSearchParams(window.location.search);
 
@@ -15,7 +16,6 @@ export class OperationEdit {
         document.getElementById('updateButton').addEventListener('click', this.updateOperation.bind(this));
 
         this.operationEditSelectTypeElement = document.getElementById('operationEditSelectType');
-        // this.operationEditInputCategoryElement = document.getElementById('operationEditInputCategory');
         this.operationEditSelectCategoryElement = document.getElementById('operationEditSelectCategory');
         this.operationEditInputAmountElement = document.getElementById('operationEditInputAmount');
         this.airDatepickerElement = document.getElementById('airDatepicker');
@@ -43,53 +43,33 @@ export class OperationEdit {
 
         this.operationOriginalData = result.response;
         this.showOperation(result.response);
+        this.getCategories(result.response.type, this.operationEditSelectCategoryElement, result.response.category).then();
     }
 
     showOperation(operation) {
-        console.log(operation)
         this.operationEditSelectTypeElement.value = operation.type;
 
         const option = document.createElement('option');
         option.innerText = operation.category;
         option.value = operation.id;
-        this.operationEditSelectCategoryElement.appendChild(option);
-        // this.operationEditSelectCategoryElement.value = operation.category;
 
         this.operationEditInputAmountElement.value = operation.amount;
         this.airDatepickerElement.value = operation.date;
         this.operationEditInputCommentElement.value = operation.comment;
     }
 
-    validateForm() {
-        let isValid = true;
-
-        const validations = [
-            // this.operationEditInputCategoryElement,
-            this.operationEditInputAmountElement,
-            this.airDatepickerElement,
-            this.operationEditInputCommentElement
-        ];
-
-        for (let i = 0; i < validations.length; i++) {
-            if (validations[i].value) {
-                validations[i].classList.remove('is-invalid');
-            } else {
-                validations[i].classList.add('is-invalid');
-                isValid = false;
-            }
-        }
-
-        return isValid;
-    }
-
     async updateOperation(e) {
         e.preventDefault();
 
-        if (this.validateForm()) {
+        if (this.validateForm([
+            this.operationEditInputAmountElement,
+            this.airDatepickerElement,
+            this.operationEditInputCommentElement
+        ])) {
 
             const changedData = {
                 type: this.operationEditSelectTypeElement.value,
-                category_id: this.operationEditSelectCategoryElement.value,
+                category_id: Number(this.operationEditSelectCategoryElement.value),
                 amount: parseInt(this.operationEditInputAmountElement.value),
                 date: this.airDatepickerElement.value,
                 comment: this.operationEditInputCommentElement.value,

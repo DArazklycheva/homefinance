@@ -1,0 +1,32 @@
+<section class="operation-create m-5">
+    <h1 class="pt-5">Создание дохода / расхода</h1>
+    <div class="input flex-nowrap w-75 mt-5">
+        <label for="operationCreateSelectType"></label>
+        <select class="form-control" id="operationCreateSelectType">
+        </select>
+    </div>
+    <div class="input flex-nowrap w-75 mb-4">
+        <label for="operationCreateSelectCategory"></label>
+        <select class="form-control" id="operationCreateSelectCategory">
+        </select>
+    </div>
+    <div class="input flex-nowrap w-75">
+        <input type="number" class="form-control" placeholder="Сумма в $..." id="operationCreateInputAmount">
+        <span id="operationCreateInputAmount-error" class="error invalid-feedback">Заполните поле</span>
+        <label for="operationCreateInputAmount"></label>
+    </div>
+    <div class="input flex-nowrap w-75">
+        <input type="text" id="airDatepicker" class="form-control" placeholder="Дата...">
+        <span id="operationCreateInputDate-error" class="error invalid-feedback">Заполните поле</span>
+        <label for="airDatepicker"></label>
+    </div>
+    <div class="input flex-nowrap w-75">
+        <input type="text" class="form-control" placeholder="Комментарий..." id="operationCreateInputComment">
+        <span id="operationCreateInputComment-error" class="error invalid-feedback">Заполните поле</span>
+        <label for="operationCreateInputComment"></label>
+    </div>
+    <div class="btns">
+        <button type="button" class="btn btn-success me-2" id="createButton">Создать</button>
+        <a href="/operation" class="btn btn-danger mt-sm-0 mt-2">Отмена</a>
+    </div>
+</section>

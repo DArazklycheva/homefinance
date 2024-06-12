@@ -22,6 +22,8 @@
     "webpack-dev-server": "^5.0.4"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3"
+    "air-datepicker": "^3.5.3",
+    "bootstrap": "^5.3.3",
+    "chart.js": "^4.4.3"
   }
 }

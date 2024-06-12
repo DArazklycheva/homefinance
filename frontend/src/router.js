@@ -2,19 +2,20 @@ import {Main} from "./components/main";
 import {Login} from "./components/auth/login";
 import {SignUp} from "./components/auth/sign-up";
 import {Logout} from "./components/auth/logout";
-import {IncomeView} from "./components/income/income-view";
+import {IncomeList} from "./components/income/income-list";
 import {IncomeDelete} from "./components/income/income-delete";
 import {IncomeCreate} from "./components/income/income-create";
 import {IncomeEdit} from "./components/income/income-edit";
-import {ExpensesView} from "./components/expenses/expenses-view";
-import {ExpensesDelete} from "./components/expenses/expenses-delete";
-import {ExpensesCreate} from "./components/expenses/expenses-create";
-import {ExpensesEdit} from "./components/expenses/expenses-edit";
-import {IncomeExpensesView} from "./components/income&expenses/income&expenses-view";
-import {IncomeExpensesDelete} from "./components/income&expenses/income&expenses-delete";
-import {IncomeExpensesCreate} from "./components/income&expenses/income&expenses-create";
-import {IncomeExpensesEdit} from "./components/income&expenses/income&expenses-edit";
+import {ExpenseList} from "./components/expense/expense-list";
+import {ExpenseDelete} from "./components/expense/expense-delete";
+import {ExpenseCreate} from "./components/expense/expense-create";
+import {ExpenseEdit} from "./components/expense/expense-edit";
+import {OperationList} from "./components/operation/operation-list";
+import {OperationDelete} from "./components/operation/operation-delete";
+import {OperationCreate} from "./components/operation/operation-create";
+import {OperationEdit} from "./components/operation/operation-edit";
 import {AuthUtils} from "./utils/auth-utils";
+import {HttpUtils} from "./utils/http-utils";
 
 export class Router {
     constructor() {
@@ -30,7 +31,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/main.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new Main();
+                    new Main(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -66,10 +67,10 @@ export class Router {
             {
                 route: '/income',
                 title: 'Доходы',
-                filePathTemplate: '/templates/pages/income/view.html',
+                filePathTemplate: '/templates/pages/income/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeView();
+                    new IncomeList(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -78,7 +79,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/income/delete.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeDelete();
+                    new IncomeDelete(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -87,7 +88,7 @@ export class Router {
                 filePathTemplate: '/templates/pages/income/create.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeCreate();
+                    new IncomeCreate(this.openNewRoute.bind(this));
                 }
             },
             {
@@ -96,79 +97,79 @@ export class Router {
                 filePathTemplate: '/templates/pages/income/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeEdit();
+                    new IncomeEdit(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/expenses',
+                route: '/expense',
                 title: 'Расходы',
-                filePathTemplate: '/templates/pages/expenses/view.html',
+                filePathTemplate: '/templates/pages/expense/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesView();
+                    new ExpenseList(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/expenses/delete',
+                route: '/expense/delete',
                 title: 'Удалить расход',
-                filePathTemplate: '/templates/pages/expenses/delete.html',
+                filePathTemplate: '/templates/pages/expense/delete.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesDelete();
+                    new ExpenseDelete(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/expenses/create',
+                route: '/expense/create',
                 title: 'Создать расход',
-                filePathTemplate: '/templates/pages/expenses/create.html',
+                filePathTemplate: '/templates/pages/expense/create.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesCreate();
+                    new ExpenseCreate(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/expenses/edit',
+                route: '/expense/edit',
                 title: 'Редактировать расход',
-                filePathTemplate: '/templates/pages/expenses/edit.html',
+                filePathTemplate: '/templates/pages/expense/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new ExpensesEdit();
+                    new ExpenseEdit(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/income&expenses',
+                route: '/operation',
                 title: 'Доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/view.html',
+                filePathTemplate: '/templates/pages/operation/list.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesView();
+                    new OperationList(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/income&expenses/delete',
+                route: '/operation/delete',
                 title: 'Удалить доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/delete.html',
+                filePathTemplate: '/templates/pages/operation/delete.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesDelete();
+                    new OperationDelete(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/income&expenses/create',
+                route: '/operation/create',
                 title: 'Создать доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/create.html',
+                filePathTemplate: '/templates/pages/operation/create.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesCreate();
+                    new OperationCreate(this.openNewRoute.bind(this));
                 }
             },
             {
-                route: '/income&expenses/edit',
+                route: '/operation/edit',
                 title: 'Редактировать доходы и расходы',
-                filePathTemplate: '/templates/pages/income&expenses/edit.html',
+                filePathTemplate: '/templates/pages/operation/edit.html',
                 useLayout: '/templates/layout.html',
                 load: () => {
-                    new IncomeExpensesEdit();
+                    new OperationEdit(this.openNewRoute.bind(this));
                 }
             },
         ];
@@ -216,11 +217,9 @@ export class Router {
         const newRoute = this.routes.find(item => item.route === urlRoute);
 
         if (newRoute) {
-
             if (newRoute.title) {
                 this.titlePageElement.innerText = newRoute.title + ' | Lumincoin Finance';
             }
-
             if (newRoute.filePathTemplate) {
                 let contentBlock = this.contentPageElement;
                 if (newRoute.useLayout) {
@@ -235,11 +234,14 @@ export class Router {
                             if (userInfo.name && userInfo.lastName) {
                                 this.userFullName = userInfo.name + ' ' + userInfo.lastName;
                             }
-                        } else {
-                            await this.openNewRoute('/login');
                         }
                     }
+                    this.activateMenuItem(newRoute);
+
                     this.profileNameElement.innerText = this.userFullName;
+
+                    const resultBalance = await HttpUtils.request('/balance');
+                    document.getElementById('balance').innerText = resultBalance.response.balance + '$';
 
                 }
                 contentBlock.innerHTML = await fetch(newRoute.filePathTemplate).then(response => response.text());
@@ -251,7 +253,26 @@ export class Router {
         } else {
             console.log('No route found');
             history.pushState({}, '', '/404');
-            await this.activateRoute();
+            await this.activateRoute(null);
         }
+    }
+
+    activateMenuItem(route) {
+        document.querySelectorAll('.nav .nav-link').forEach(item => {
+            const href = item.getAttribute('href');
+            if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+        document.querySelectorAll('.dropdown-item').forEach(item => {
+            const href = item.getAttribute('href');
+            if ((route.route.includes(href) && href !== '/') || (route.route === '/' && href === '/')) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
     }
 }

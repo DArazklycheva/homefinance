@@ -1,7 +1,7 @@
 import {HttpUtils} from "../../utils/http-utils";
-import {Income} from "./income";
+import {Expense} from "./expense";
 
-export class IncomeDelete extends Income {
+export class ExpenseDelete extends Expense {
     constructor(openNewRoute) {
         super(openNewRoute);
 
@@ -12,22 +12,22 @@ export class IncomeDelete extends Income {
             return this.openNewRoute('/');
         }
 
-        this.getIncomes().then();
+        this.getExpenses().then();
 
-        document.getElementById('deleteButton').addEventListener('click', this.deleteIncome.bind(this));
+        document.getElementById('deleteButton').addEventListener('click', this.deleteExpense.bind(this));
     }
 
-    async deleteIncome() {
-        const result = await HttpUtils.request('/categories/income/' + this.id, 'DELETE', true);
+    async deleteExpense() {
+        const result = await HttpUtils.request('/categories/expense/' + this.id, 'DELETE', true);
         if (result.redirect) {
             return this.openNewRoute(result.redirect);
         }
 
         if (result.error || !result.response || (result.response && result.response.error)) {
             console.log(result.response.message);
-            return alert('Возникла ошибка при удалении дохода. Обратитесь в поддержку.');
+            return alert('Возникла ошибка при удалении расхода. Обратитесь в поддержку.');
         }
 
-        return this.openNewRoute('/income');
+        return this.openNewRoute('/expense');
     }
 }

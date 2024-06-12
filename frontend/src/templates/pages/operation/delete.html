@@ -1,0 +1,61 @@
+<section class="operation-delete m-5">
+    <h1 class="pt-5">Доходы и расходы</h1>
+    <div class="btns mt-4">
+        <a href="/operation/create" class="btn btn-success me-2">Создать доход</a>
+        <a href="/operation/create" class="btn btn-danger">Создать расход</a>
+    </div>
+    <div class="time-interval mt-4">
+        <input type="radio" class="btn-check" id="radioBtnToday" autocomplete="off" data-interval="today" checked name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnToday" style="width: 100px;">Сегодня</label>
+
+        <input type="radio" class="btn-check" id="radioBtnWeek" autocomplete="off" data-interval="week" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnWeek" style="width: 100px;">Неделя</label>
+
+        <input type="radio" class="btn-check" id="radioBtnMonth" autocomplete="off" data-interval="month" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnMonth" style="width: 100px;">Месяц</label>
+
+        <input type="radio" class="btn-check" id="radioBtnYear" autocomplete="off" data-interval="year" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnYear" style="width: 100px;">Год</label>
+
+        <input type="radio" class="btn-check" id="radioBtnAll" autocomplete="off" data-interval="all" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnAll" style="width: 100px;">Все</label>
+
+        <input type="radio" class="btn-check" id="radioBtnInterval" autocomplete="off" data-interval="interval" name="interval">
+        <label class="btn btn-outline-secondary me-3" for="radioBtnInterval" style="width: 100px;">Интервал</label>
+
+        <div class="d-inline-block">
+            с
+            <label for="airDatepicker"></label>
+            <input type="text" id="airDatepicker" class="form-control d-inline-block me-3" style="width: 117px; border: none; text-decoration: underline;" placeholder="Дата">
+            по
+            <label for="airDatepicker2"></label>
+            <input type="text" id="airDatepicker2" class="form-control d-inline-block me-3" style="width: 117px; border: none; text-decoration: underline;" placeholder="Дата">
+        </div>
+    </div>
+
+    <table class="table mt-5 text-center">
+        <thead>
+        <tr>
+            <th scope="col">№ операции</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Категория</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Комментарий</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody id="records">
+        </tbody>
+    </table>
+</section>
+
+<div class="popup w-100 h-100 fixed-bottom z-2" id="popup">
+    <div class="popup-container d-flex w-100 h-100">
+        <div class="popup-body text-center m-auto" id="popup-body">
+            <h6 class="mb-3">Вы действительно хотите удалить операцию?</h6>
+            <button type="button" class="btn btn-success me-2" id="deleteButton">Да, удалить</button>
+            <a href="/operation" class="btn btn-danger">Не удалять</a>
+        </div>
+    </div>
+</div>

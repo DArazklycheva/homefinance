@@ -1,8 +1,12 @@
-<section class="main m-5">
-    <h1 class="pt-5">Главная</h1>
+<section class="operation-list m-5">
+    <h1 class="pt-5">Доходы и расходы</h1>
+    <div class="btns mt-4">
+        <a href="/operation/create?type=income" class="btn btn-success me-2">Создать доход</a>
+        <a href="/operation/create?type=expense" class="btn btn-danger">Создать расход</a>
+    </div>
     <div class="time-interval mt-4">
 
-        <input type="radio" class="btn-check" id="radioBtnToday" autocomplete="off" data-interval="today" name="interval">
+        <input type="radio" class="btn-check" id="radioBtnToday" autocomplete="off" data-interval="today" checked name="interval">
         <label class="btn btn-outline-secondary me-3" for="radioBtnToday" style="width: 100px;">Сегодня</label>
 
         <input type="radio" class="btn-check" id="radioBtnWeek" autocomplete="off" data-interval="week" name="interval">
@@ -14,7 +18,7 @@
         <input type="radio" class="btn-check" id="radioBtnYear" autocomplete="off" data-interval="year" name="interval">
         <label class="btn btn-outline-secondary me-3" for="radioBtnYear" style="width: 100px;">Год</label>
 
-        <input type="radio" class="btn-check" id="radioBtnAll" autocomplete="off" data-interval="all" name="interval" checked>
+        <input type="radio" class="btn-check" id="radioBtnAll" autocomplete="off" data-interval="all" name="interval">
         <label class="btn btn-outline-secondary me-3" for="radioBtnAll" style="width: 100px;">Все</label>
 
         <input type="radio" class="btn-check" id="radioBtnInterval" autocomplete="off" data-interval="interval" name="interval" disabled>
@@ -30,15 +34,19 @@
         </div>
     </div>
 
-    <div class="schedule d-flex justify-content-evenly mt-5" id="schedule">
-        <div class="schedule-circle income" id="income">
-            <div class="schedule-title text-center mb-2">Доходы</div>
-            <canvas class="w-100" id="myIncomes"></canvas>
-        </div>
-        <div class="divider"></div>
-        <div class="schedule-circle expense" id="expense">
-            <div class="schedule-title text-center mb-2">Расходы</div>
-            <canvas class="w-100" id="myExpense"></canvas>
-        </div>
-    </div>
+    <table class="table mt-5 text-center">
+        <thead>
+        <tr>
+            <th scope="col">№ операции</th>
+            <th scope="col">Тип</th>
+            <th scope="col">Категория</th>
+            <th scope="col">Сумма</th>
+            <th scope="col">Дата</th>
+            <th scope="col">Комментарий</th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody id="records">
+        </tbody>
+    </table>
 </section>
